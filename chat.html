@@ -19,7 +19,7 @@
     let chat = document.getElementById('chat');
     let input = document.getElementById('input');
     const nome = document.getElementById('nome');
-    const socket = new WebSocket('ws://project-akrasia-websockets.herokuapp.com:3000/chat');
+    const socket = new WebSocket('ws://localhost:3000/chat');
 //lksdjlksf
     // Ao receber mensagens do servidor
     socket.addEventListener('message', function (event) {
