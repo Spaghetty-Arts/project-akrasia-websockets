@@ -19,7 +19,7 @@
     let chat = document.getElementById('chat');
     let input = document.getElementById('input');
     const nome = document.getElementById('nome');
-    const socket = new WebSocket('ws://localhost:9990/chat');
+    const socket = new WebSocket('ws://localhost:3000/chat');
 
     // Ao receber mensagens do servidor
     socket.addEventListener('message', function (event) {
