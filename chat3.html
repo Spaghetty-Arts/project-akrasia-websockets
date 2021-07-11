@@ -19,7 +19,7 @@
     let chat = document.getElementById('chat');
     let input = document.getElementById('input');
     const nome = document.getElementById('nome');
-    const socket = new WebSocket('wss://84.90.189.228:70/chat');
+    const socket = new WebSocket('ws://84.90.189.228:70/chat');
 
     // Ao receber mensagens do servidor
     socket.addEventListener('message', function (event) {
