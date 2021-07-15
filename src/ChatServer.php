@@ -1,40 +1,18 @@
 <?php
+use Ratchet\Server\IoServer;
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
+use MyApp\Chat;
 
-namespace Chat;
+    require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Exception;
-use SplObjectStorage;
-use Ratchet\ConnectionInterface;
-use Ratchet\MessageComponentInterface;
+    $server = IoServer::factory(
+        new HttpServer(
+            new WsServer(
+                new Chat()
+            )
+        ),
+	70
+    );
 
-final class ChatServer implements MessageComponentInterface
-{
-    private $clients;
-
-    public function __construct()
-    {
-        $this->clients = new SplObjectStorage();
-    }
-
-    public function onOpen(ConnectionInterface $conn): void
-    {
-        $this->clients->attach($conn);
-    }
-
-    public function onMessage(ConnectionInterface $from, $msg): void
-    {
-        foreach ($this->clients as $client) {
-            $client->send($msg);
-        }
-    }
-
-    public function onClose(ConnectionInterface $conn): void
-    {
-        $this->clients->detach($conn);
-    }
-
-    public function onError(ConnectionInterface $conn, Exception $exception): void
-    {
-        $conn->close();
-    }
-}
+    $server->run();
